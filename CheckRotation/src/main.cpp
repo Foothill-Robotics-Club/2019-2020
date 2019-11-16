@@ -33,19 +33,19 @@ int main() {
 
   //task::sleep(2000);
 
-  LeftMotor.resetRotation();
-  RightMotor.resetRotation();
+  LeftMotor.resetRotation();//left morotor reset rotation
+  RightMotor.resetRotation();//right motor reset rotation
   
-  LeftMotor.setVelocity(5, velocityUnits::pct);
-  RightMotor.setVelocity(5, velocityUnits::pct);
+  LeftMotor.setVelocity(5, velocityUnits::pct);//left motor set velocity at 5pct
+  RightMotor.setVelocity(5, velocityUnits::pct);//right motor set velocity at 5pct
   //+ Controller.Axis4.value())/2
   //- Controller.Axis4.value())/2,
   
-  LeftIntake.spin(directionType::fwd);
-  RightIntake.spin(directionType::fwd);
+  LeftIntake.spin(directionType::fwd);//left intake motor set spin direction forward
+  RightIntake.spin(directionType::fwd);//right intake motor set spin direction forward
 
-  LeftIntake.setVelocity(50, velocityUnits::pct);
-  RightIntake.setVelocity(50, velocityUnits::pct);
+  LeftIntake.setVelocity(50, velocityUnits::pct);//left intake motor set velocity to 50pct
+  RightIntake.setVelocity(50, velocityUnits::pct);//right intake motor set velcoity to 50pct
 
   while (notEnded){
         LeftIntake.setVelocity(50, velocityUnits::pct);
