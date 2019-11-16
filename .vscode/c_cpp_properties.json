@@ -11,8 +11,10 @@
                 "_UNICODE"
             ],
             "intelliSenseMode": "msvc-x64",
-            "compileCommands": "${workspaceFolder}/CheckRotation/compile_commands.json"
+            "compileCommands": "${workspaceFolder}/CheckRotation/compile_commands.json",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         }
     ],
-    "version": 4
+    "version": 3
 }
