@@ -48,22 +48,24 @@ int main() {
   RightIntake.setVelocity(50, velocityUnits::pct);//right intake motor set velcoity to 50pct
 
   while (notEnded){
-        LeftIntake.setVelocity(50, velocityUnits::pct);//left intake will continue to spin at 50pct when right 1 is not pressed
-        RightIntake.setVelocity(50, velocityUnits::pct);//right intake will continue to spin at 50 pct when right 1 is not pressed
+        //LeftIntake.setVelocity(50, velocityUnits::pct);//left intake will continue to spin at 50pct when right 1 is not pressed
+        //RightIntake.setVelocity(50, velocityUnits::pct);//right intake will continue to spin at 50 pct when right 1 is not pressed
 
         LeftMotor.spin(vex::directionType::fwd, (Controller.Axis3.value() + Controller.Axis1.value()*2), vex::velocityUnits::pct);//left motor will spin forward and change direction according to input from the right stick
         RightMotor.spin(vex::directionType::fwd, (Controller.Axis3.value() - Controller.Axis1.value()*2), vex::velocityUnits::pct);//right motor will spin forward and change direction according to input from the left stick
 
         if((Controller.ButtonL1.pressing())){//if right 1 is pressed reverse the spin of left intake and right intake
-            LeftIntake.spin(directionType::rev);
-            RightIntake.spin(directionType::rev);
-            LeftIntake.setVelocity(100, velocityUnits::pct);
-            RightIntake.setVelocity(1000, velocityUnits::pct);
+            LeftIntake.spin(directionType::rev, 200, velocityUnits::pct);
+            RightIntake.spin(directionType::rev, 200, velocityUnits::pct);
         }
 
         else if (Controller.ButtonR1.pressing()){//if right 1 is pressed set the left intake and right intake speed to 0
             LeftIntake.setVelocity(0, velocityUnits::pct);
             RightIntake.setVelocity(0, velocityUnits::pct);
+        }
+        else{
+                      LeftIntake.spin(directionType::fwd, 200, velocityUnits::pct);
+            RightIntake.spin(directionType::fwd, 200, velocityUnits::pct);
         }
   }
 /*
