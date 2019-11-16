@@ -15,13 +15,13 @@ vex::brain       Brain;
 vex::controller  Controller;
 
 // define your global instances of motors and other devices here
-vex::motor LeftMotor = vex::motor(PORT1);
-vex::motor RightMotor = vex::motor(PORT2, true);
-vex::motor LeftArmMotor = vex::motor(PORT3);
-vex::motor RightArmMotor = vex::motor(PORT4, true);
+vex::motor LeftMotor = vex::motor(PORT1);//left motor for movement
+vex::motor RightMotor = vex::motor(PORT2, true);//right motor for movement
+vex::motor LeftArmMotor = vex::motor(PORT3);//left motor to raise arm
+vex::motor RightArmMotor = vex::motor(PORT4, true);//right motor to raise arm
 vex::motor LeftIntake = vex::motor(PORT5);//if r1 and r2 are  not pressed, intake spins continous; if r1 intake stops; if r1+r2, reverse.
-vex::motor RightIntake = vex::motor(PORT6, true);
-vex::motor PushupBra = vex::motor(PORT7);
+vex::motor RightIntake = vex::motor(PORT6, true);//left intake and right intake motors are the spinning mechanism that captures the cubes
+vex::motor PushupBar = vex::motor(PORT7);//
 
 bool notEnded = true;
 
