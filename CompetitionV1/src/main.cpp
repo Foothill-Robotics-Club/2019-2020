@@ -104,7 +104,7 @@ void usercontrol( void ) {
         LeftMotor.spin(vex::directionType::fwd, (Controller.Axis3.value() + Controller.Axis1.value()*2), vex::velocityUnits::pct);//left motor will spin forward and change direction according to input from the right stick
         RightMotor.spin(vex::directionType::fwd, (Controller.Axis3.value() - Controller.Axis1.value()*2), vex::velocityUnits::pct);//right motor will spin forward and change direction according to input from the left stick
 
-        if((Controller.ButtonL1.pressing())){//if right 1 is pressed reverse the spin of left intake and right intake
+        if((Controller.ButtonR2.pressing())){//if right 1 is pressed reverse the spin of left intake and right intake
             LeftIntake.spin(directionType::rev, 200, velocityUnits::pct);
             RightIntake.spin(directionType::rev, 200, velocityUnits::pct);
         }
