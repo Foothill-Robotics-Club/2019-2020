@@ -97,7 +97,7 @@ void usercontrol( void ) {
   LeftIntake.setVelocity(50, velocityUnits::pct);//left intake motor set velocity to 50pct
   RightIntake.setVelocity(50, velocityUnits::pct);//right intake motor set velcoity to 50pct
 
-  while (notEnded){
+    while (1){
         //LeftIntake.setVelocity(50, velocityUnits::pct);//left intake will continue to spin at 50pct when right 1 is not pressed
         //RightIntake.setVelocity(50, velocityUnits::pct);//right intake will continue to spin at 50 pct when right 1 is not pressed
 
@@ -117,6 +117,7 @@ void usercontrol( void ) {
                       LeftIntake.spin(directionType::fwd, 200, velocityUnits::pct);
             RightIntake.spin(directionType::fwd, 200, velocityUnits::pct);
         }
+  }
   }
 /*
 while(Controller.ButtonR1.pressing()){
@@ -149,7 +150,6 @@ ArmMotor1.stop()
  
     vex::task::sleep(20); //Sleep the task for a short amount of time to prevent wasted resources. 
   }
-}
 
 //
 // Main will set up the competition functions and callbacks.
