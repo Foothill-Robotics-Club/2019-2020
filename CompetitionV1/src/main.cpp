@@ -114,10 +114,21 @@ void usercontrol( void ) {
             RightIntake.setVelocity(0, velocityUnits::pct);
         }
         else{
-                      LeftIntake.spin(directionType::fwd, 200, velocityUnits::pct);
+            LeftIntake.spin(directionType::fwd, 200, velocityUnits::pct);
             RightIntake.spin(directionType::fwd, 200, velocityUnits::pct);
         }
-  }
+  }     if(Controller.ButtonL1.pressing()){
+            LeftArmMotor.spin(directionType::fwd, 200, velocityUnits::pct);
+            RightArmMotor.spin(directionType::fwd, 200, velocityUnits::pct);
+          }
+        else if(Controller.ButtonL2.pressing()){
+            LeftArmMotor.spin(directionType::rev, 200, velocityUnits::pct);
+            RightArmMotor.spin(directionType::rev, 200, velocityUnits::pct);
+        }
+        else{
+            LeftArmMotor.stop();
+            LeftArmMotor.stop();
+        }
   }
 /*
 while(Controller.ButtonR1.pressing()){
