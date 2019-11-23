@@ -79,7 +79,13 @@ void usercontrol( void ) {
 
   LeftMotor.resetRotation();//left morotor reset rotation
   RightMotor.resetRotation();//right motor reset rotation
-  
+
+  LeftArmMotor.resetRotation();
+  RightArmMotor.resterRotation();
+
+  LeftArmMotor.setVelocity(200, velocityUnits::pct);
+  RightArmMotor.setVelocity(200, velocityUnits::pct);
+
   LeftMotor.setVelocity(5, velocityUnits::pct);//left motor set velocity at 5pct
   RightMotor.setVelocity(5, velocityUnits::pct);//right motor set velocity at 5pct
   //+ Controller.Axis4.value())/2
@@ -90,6 +96,7 @@ void usercontrol( void ) {
 
   LeftIntake.setVelocity(50, velocityUnits::pct);//left intake motor set velocity to 50pct
   RightIntake.setVelocity(50, velocityUnits::pct);//right intake motor set velcoity to 50pct
+
   while (1){
       //LeftIntake.setVelocity(50, velocityUnits::pct);//left intake will continue to spin at 50pct when right 1 is not pressed
       //RightIntake.setVelocity(50, velocityUnits::pct);//right intake will continue to spin at 50 pct when right 1 is not pressed
@@ -97,7 +104,7 @@ void usercontrol( void ) {
       LeftMotor.spin(vex::directionType::fwd, (Controller.Axis3.value() + Controller.Axis1.value()*2), vex::velocityUnits::pct);//left motor will spin forward and change direction according to input from the right stick
       RightMotor.spin(vex::directionType::fwd, (Controller.Axis3.value() - Controller.Axis1.value()*2), vex::velocityUnits::pct);//right motor will spin forward and change direction according to input from the left stick
 
-      if((Controller.ButtonR2.pressing())){//if right 1 is pressed reverse the spin of left intake and right intake
+      if((Controller.ButtonR2.pressing())){//if right 2 is pressed reverse the spin of left intake and right intake
           LeftIntake.spin(directionType::rev, 200, velocityUnits::pct);
           RightIntake.spin(directionType::rev, 200, velocityUnits::pct);
       }
@@ -106,21 +113,22 @@ void usercontrol( void ) {
           LeftIntake.setVelocity(0, velocityUnits::pct);
           RightIntake.setVelocity(0, velocityUnits::pct);
       }
-      else{
+      else if (!(Controller.ButtonR2.pressing())&&!(Controller.ButtonR1.pressing()))//if not pressed the intake spins as normal
           LeftIntake.spin(directionType::fwd, 200, velocityUnits::pct);
           RightIntake.spin(directionType::fwd, 200, velocityUnits::pct);
       }
+
     if(Controller.ButtonL1.pressing()){
-          LeftArmMotor.spin(directionType::fwd, 200, velocityUnits::pct);
-          RightArmMotor.spin(directionType::fwd, 200, velocityUnits::pct);
+          LeftIntake.spin(directionType::fwd);
+          RightArmMotor.spin(directionType::fwd);
         }
       else if(Controller.ButtonL2.pressing()){
           LeftArmMotor.spin(directionType::rev, 200, velocityUnits::pct);
           RightArmMotor.spin(directionType::rev, 200, velocityUnits::pct);
       }
-      else{
-          LeftArmMotor.stop();
-          LeftArmMotor.stop();
+      else if (!(Controller.ButtonL1.pressing())&&!(Controller.ButtonL2.pressing())){
+          LeftArmMotor.setVelocity(0, velocityUnits::pct);
+          RightArmMotor.setVelocity(0, velocityUnits::pct);
       }
   }
 } 
