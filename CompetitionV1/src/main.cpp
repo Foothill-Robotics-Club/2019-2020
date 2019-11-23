@@ -83,9 +83,6 @@ void usercontrol( void ) {
   LeftArmMotor.resetRotation();
   RightArmMotor.resterRotation();
 
-  LeftArmMotor.setVelocity(200, velocityUnits::pct);
-  RightArmMotor.setVelocity(200, velocityUnits::pct);
-
   LeftMotor.setVelocity(5, velocityUnits::pct);//left motor set velocity at 5pct
   RightMotor.setVelocity(5, velocityUnits::pct);//right motor set velocity at 5pct
   //+ Controller.Axis4.value())/2
@@ -100,6 +97,10 @@ void usercontrol( void ) {
   while (1){
       //LeftIntake.setVelocity(50, velocityUnits::pct);//left intake will continue to spin at 50pct when right 1 is not pressed
       //RightIntake.setVelocity(50, velocityUnits::pct);//right intake will continue to spin at 50 pct when right 1 is not pressed
+
+
+      LeftArmMotor.setVelocity(200, velocityUnits::pct);
+      RightArmMotor.setVelocity(200, velocityUnits::pct);
 
       LeftMotor.spin(vex::directionType::fwd, (Controller.Axis3.value() + Controller.Axis1.value()*2), vex::velocityUnits::pct);//left motor will spin forward and change direction according to input from the right stick
       RightMotor.spin(vex::directionType::fwd, (Controller.Axis3.value() - Controller.Axis1.value()*2), vex::velocityUnits::pct);//right motor will spin forward and change direction according to input from the left stick
