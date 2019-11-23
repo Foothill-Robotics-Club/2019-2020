@@ -81,7 +81,7 @@ void usercontrol( void ) {
   RightMotor.resetRotation();//right motor reset rotation
 
   LeftArmMotor.resetRotation();
-  RightArmMotor.resterRotation();
+  RightArmMotor.resetRotation();
 
   LeftMotor.setVelocity(5, velocityUnits::pct);//left motor set velocity at 5pct
   RightMotor.setVelocity(5, velocityUnits::pct);//right motor set velocity at 5pct
@@ -131,8 +131,7 @@ void usercontrol( void ) {
           LeftArmMotor.setVelocity(0, velocityUnits::pct);
           RightArmMotor.setVelocity(0, velocityUnits::pct);
       }
-  }
-} 
+  } 
 /*
 while(Controller.ButtonR1.pressing()){
   ArmMotor1.spin(directionType::fwd);
@@ -151,19 +150,18 @@ ArmMotor1.stop()
       notEnded = false;
     }
   }*/
+/*
+  brain.Screen.print("Left Motor rotation: ");
+  brain.Screen.print(LeftMotor.rotation(rotationUnits::deg));
+  brain.Screen.newLine();
 
-  Brain.Screen.print("Left Motor rotation: ");
-  Brain.Screen.print(LeftMotor.rotation(rotationUnits::deg));
-  Brain.Screen.newLine();
-
-  Brain.Screen.print("Right Motor rotation: ");
-  Brain.Screen.print(RightMotor.rotation(rotationUnits::deg));
-  Brain.Screen.newLine();
-
+  brain.Screen.print("Right Motor rotation: ");
+  brain.Screen.print(RightMotor.rotation(rotationUnits::deg));
+  brain.Screen.newLine();
+*/
     // ........................................................................
  
-    vex::task::sleep(20); //Sleep the task for a short amount of time to prevent wasted resources. 
-  }
+   // vex::task::sleep(20); //Sleep the task for a short amount of time to prevent wasted resources. 
 
 //
 // Main will set up the competition functions and callbacks.
