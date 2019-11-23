@@ -105,6 +105,9 @@ void usercontrol( void ) {
       LeftMotor.spin(vex::directionType::fwd, (Controller.Axis3.value() + Controller.Axis1.value()*2), vex::velocityUnits::pct);//left motor will spin forward and change direction according to input from the right stick
       RightMotor.spin(vex::directionType::fwd, (Controller.Axis3.value() - Controller.Axis1.value()*2), vex::velocityUnits::pct);//right motor will spin forward and change direction according to input from the left stick
 
+      LeftArmMotor.spin(vex::directionType::fwd, Controller.ButtonL1.value()-Controller.ButtonL2.value(), vex::velocityUnits::pct);
+      RightArmMotor.spin(vex::directionType::fwd, Controller.ButtonL1.value()-Controller.ButtonL2.value(), vex::velocityUnits::pct);
+
       if((Controller.ButtonR2.pressing())){//if right 2 is pressed reverse the spin of left intake and right intake
           LeftIntake.spin(directionType::rev, 200, velocityUnits::pct);
           RightIntake.spin(directionType::rev, 200, velocityUnits::pct);
@@ -119,7 +122,7 @@ void usercontrol( void ) {
           RightIntake.spin(directionType::fwd, 200, velocityUnits::pct);
       }
 
-    if(Controller.ButtonL1.pressing()){//if left 1 is pressing, than 
+      /*if(Controller.ButtonL1.pressing()){//if left 1 is pressing, than 
           LeftArmMotor.spin(directionType::fwd);
           RightArmMotor.spin(directionType::fwd);
         }
@@ -130,7 +133,7 @@ void usercontrol( void ) {
       else if (!(Controller.ButtonL1.pressing())&&!(Controller.ButtonL2.pressing())){
           LeftArmMotor.setVelocity(0, velocityUnits::pct);
           RightArmMotor.setVelocity(0, velocityUnits::pct);
-      }
+      }*/
   } 
 /*
 while(Controller.ButtonR1.pressing()){
