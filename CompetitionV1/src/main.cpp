@@ -118,8 +118,8 @@ void usercontrol( void ) {
           RightIntake.spin(directionType::fwd, 200, velocityUnits::pct);
       }
 
-    if(Controller.ButtonL1.pressing()){
-          LeftIntake.spin(directionType::fwd);
+    if(Controller.ButtonL1.pressing()){//if left 1 is pressing, than 
+          LeftArmMotor.spin(directionType::fwd);
           RightArmMotor.spin(directionType::fwd);
         }
       else if(Controller.ButtonL2.pressing()){
