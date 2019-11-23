@@ -53,6 +53,7 @@ void pre_auton( void ) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous( void ) {
+  
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
@@ -70,15 +71,9 @@ void autonomous( void ) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol( void ) {
-  // User control code here, inside the loop
-  while (1) {
-    // This is the main execution loop for the user control program.
-    // Each time through the loop your program should update motor + servo 
-    // values based on feedback from the joysticks.
 
-    // ........................................................................
-    
-     Brain.Screen.print("CHECK ROTATION HAS BEGUN");
+    // User control code here, inside the loop
+  Brain.Screen.print("CHECK ROTATION HAS BEGUN");
   Brain.Screen.newLine();
 
   //task::sleep(2000);
@@ -96,7 +91,6 @@ void usercontrol( void ) {
 
   LeftIntake.setVelocity(50, velocityUnits::pct);//left intake motor set velocity to 50pct
   RightIntake.setVelocity(50, velocityUnits::pct);//right intake motor set velcoity to 50pct
-
     while (1){
         //LeftIntake.setVelocity(50, velocityUnits::pct);//left intake will continue to spin at 50pct when right 1 is not pressed
         //RightIntake.setVelocity(50, velocityUnits::pct);//right intake will continue to spin at 50 pct when right 1 is not pressed
@@ -117,7 +111,7 @@ void usercontrol( void ) {
             LeftIntake.spin(directionType::fwd, 200, velocityUnits::pct);
             RightIntake.spin(directionType::fwd, 200, velocityUnits::pct);
         }
-  }     if(Controller.ButtonL1.pressing()){
+      if(Controller.ButtonL1.pressing()){
             LeftArmMotor.spin(directionType::fwd, 200, velocityUnits::pct);
             RightArmMotor.spin(directionType::fwd, 200, velocityUnits::pct);
           }
@@ -130,6 +124,7 @@ void usercontrol( void ) {
             LeftArmMotor.stop();
         }
   }
+} 
 /*
 while(Controller.ButtonR1.pressing()){
   ArmMotor1.spin(directionType::fwd);
