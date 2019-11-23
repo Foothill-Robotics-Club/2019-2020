@@ -53,7 +53,7 @@ void pre_auton( void ) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous( void ) {
-  
+
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
@@ -71,7 +71,6 @@ void autonomous( void ) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol( void ) {
-
     // User control code here, inside the loop
   Brain.Screen.print("CHECK ROTATION HAS BEGUN");
   Brain.Screen.newLine();
