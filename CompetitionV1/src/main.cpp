@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       Foothill Robotics                                         */
+/*    Author:       Foothill Robotics Club                                    */
 /*    Created:      11/20/2019                                                */
 /*    Description:  Version 1 of the Foothill Robotics Club competition code  */
 /*                                                                            */
