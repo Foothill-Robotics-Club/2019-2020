@@ -113,17 +113,7 @@ void pushFunc( void ){
   }
 }
 
-void checkRotation( void ){
-  if((Controller.ButtonUp.pressing())&&(Controller.ButtonDown.pressing())){
-    Brain.Screen.print("Left Motor rotation: ");
-    Brain.Screen.print(LeftMotor.rotation(rotationUnits::deg));
-    Brain.Screen.newLine();
 
-    Brain.Screen.print("Right Motor rotation: ");
-    Brain.Screen.print(RightMotor.rotation(rotationUnits::deg));
-    Brain.Screen.newLine();
-  }
-}
 
 
 void usercontrol( void ) {
@@ -134,7 +124,7 @@ void usercontrol( void ) {
 
       armFunc();
       intakeFunc();
-      pushFunc();
+      //pushFunc();
   }
 
 }
