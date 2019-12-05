@@ -109,7 +109,7 @@ void pushFunc( void ){
       PushupBar.spin(directionType::rev, 25, velocityUnits::pct);
   }
   else{
-      PushupBar.stop();    
+      PushupBar.stop();
   }
 }
 
@@ -122,6 +122,6 @@ void usercontrol( void ) {
       armFunc();
       intakeFunc();
       pushFunc();
-  } 
+  }
 
 }
