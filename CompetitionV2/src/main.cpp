@@ -113,15 +113,15 @@ void pushFunc( void ){
   }
 }
 
-void checkRotation(){
-  if((Controller.ButtonUp.pressing())&&(Controller.ButtonDown.pressing()){
-    brain.Screen.print("Left Motor rotation: ");
-    brain.Screen.print(LeftMotor.rotation(rotationUnits::deg));
-    brain.Screen.newLine();
+void checkRotation( void ){
+  if((Controller.ButtonUp.pressing())&&(Controller.ButtonDown.pressing())){
+    Brain.Screen.print("Left Motor rotation: ");
+    Brain.Screen.print(LeftMotor.rotation(rotationUnits::deg));
+    Brain.Screen.newLine();
 
-    brain.Screen.print("Right Motor rotation: ");
-    brain.Screen.print(RightMotor.rotation(rotationUnits::deg));
-    brain.Screen.newLine();
+    Brain.Screen.print("Right Motor rotation: ");
+    Brain.Screen.print(RightMotor.rotation(rotationUnits::deg));
+    Brain.Screen.newLine();
   }
 }
 
