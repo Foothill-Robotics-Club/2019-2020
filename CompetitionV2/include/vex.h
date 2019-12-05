@@ -14,3 +14,7 @@
 
 #include "v5.h"
 #include "v5_vcs.h"
+
+int main(){
+  return 1;
+}
