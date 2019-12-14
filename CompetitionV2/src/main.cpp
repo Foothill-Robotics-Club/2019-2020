@@ -23,6 +23,7 @@ vex::motor LeftArmMotor = vex::motor(PORT3);//left motor to raise arm
 vex::motor RightArmMotor = vex::motor(PORT4, true);//right motor to raise arm
 vex::motor LeftIntake = vex::motor(PORT5);//if r1 and r2 are  not pressed, intake spins continous; if r1 intake stops; if r1+r2, reverse.
 vex::motor RightIntake = vex::motor(PORT6, true);//left intake and right intake motors are the spinning mechanism that captures the cubes
+<<<<<<< HEAD
 vex::motor LeftPushup = vex::motor(PORT16);//
 vex::motor RightPushup = vex::motor(PORT17);
 
@@ -30,6 +31,9 @@ double rot = -60;
 double rotArm;
 bool stack = false;
 bool knock2 = false;
+=======
+vex::motor PushupBar = vex::motor(PORT7);//what does this do again?
+>>>>>>> ea27894a1953909962a6ba3d7ff8cfceba5613d7
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -56,6 +60,7 @@ void pre_auton( void ) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
+<<<<<<< HEAD
 
 void autonomousleft(void){
   
@@ -73,7 +78,43 @@ void autonomousright( void ) {
   RightMotor.rotateFor(3000, rotationUnits::deg, 100, velocityUnits::pct);//move forward to pick up cubes
 
   LeftMotor.rotateFor(-3000, rotationUnits::deg, 100, velocityUnits::pct, false);//move backward after pick up cube 
-  RightMotor.rotateFor(-3000, rotationUnits::deg, 100, velocityUnits::pct);//move backward after pick up cube
+  RightMotor.rotateFor(-3000, rotationUnits::deg, 100, velocityUnits::pct);//move backward after pick up cu
+//all of the velocity here needs to be tested and confirmed to determine how much spin we need to do, so the values i have here are all basically dummy values.
+void autonomous( void ) {
+//pushing up the intake tray cube holding thing
+	PushupBar.spin(directionType::rev, 25, velocityUnits::pct);
+	PushupBar.spin(directionType::rev, 0, velocityUnits::pct);
+//deploying the left arm and right arm  
+	LeftArmMotor.spin(directionType::fwd, 100, velocityUnits::pct);
+  RightArmMotor.spin(dircetionType::fwd, 100, velocityUnits::pct);
+	LeftArmMotor.spin(directionType::fwd, 0, velocityUnits::pct);
+  RightArmMotor.spin(dircetionType::fwd, 0, velocityUnits::pct);
+//spinning the intakes	
+	LeftIntake.spin(directionType::rev, 100, velocityUnits::pct);
+  RightIntake.spin(directionType::rev, 100, velocityUnits::pct);
+//driving in a straight line heading for the cubes	
+	LeftMotor.spin(vex::directionType::fwd, 10, vex::velocityUnits::pct);
+  RightMotor.spin(vex::directionType::fwd, 10, vex::velocityUnits::pct);	
+//stoping the drive motors before crossing the line	
+	LeftMotor.spin(vex::directionType::fwd, 0, vex::velocityUnits::pct);
+  RightMotor.spin(vex::directionType::fwd, 0, vex::velocityUnits::pct);	
+//waiting for the intake to finish intaking. change the sleep value to something appropriate
+	vex::task::sleep(5);
+//stop the intake motor
+	LeftIntake.spin(directionType::rev, 0, velocityUnits::pct);
+  RightIntake.spin(directionType::rev, 0, velocityUnits::pct);
+//the motors spinning in opposite direction thus turning the robot to face the corner
+	LeftMotor.spin(vex::directionType::fwd, 10, vex::velocityUnits::pct);
+  RightMotor.spin(vex::directionType::rev,10, vex::velocityUnits::pct);	
+//the motors spinning in direction of corner and heading there
+	LeftMotor.spin(vex::directionType::fwd, 10, vex::velocityUnits::pct);
+  RightMotor.spin(vex::directionType::fwd, 10, vex::velocityUnits::pct);
+//stoping the drive motors before hitting the wall	
+	LeftMotor.spin(vex::directionType::fwd, 0, vex::velocityUnits::pct);
+  RightMotor.spin(vex::directionType::fwd, 0, vex::velocityUnits::pct);	
+//pushing up the intake tray cube holding thing to 90 degress relative to the floor so the cube can be released and stacked
+	PushupBar.spin(directionType::fwd, 25, velocityUnits::pct);
+	PushupBar.spin(directionType::rev, 0, velocityUnits::pct);
 
   LeftMotor.rotateFor(3000, rotationUnits::deg, 100, velocityUnits::pct, false);//turn 270 degrees
   RightMotor.rotateFor(-3000, rotationUnits::deg, 100, velocityUnits::pct);//turn 270 degrees
