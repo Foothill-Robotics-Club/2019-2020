@@ -7,6 +7,10 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
+#include <map>
+#include <iostream>
+#include <cassert>
+#include <string>
 
 using namespace vex;
 
@@ -23,17 +27,21 @@ vex::motor LeftArmMotor = vex::motor(PORT3);//left motor to raise arm
 vex::motor RightArmMotor = vex::motor(PORT4, true);//right motor to raise arm
 vex::motor LeftIntake = vex::motor(PORT5);//if r1 and r2 are  not pressed, intake spins continous; if r1 intake stops; if r1+r2, reverse.
 vex::motor RightIntake = vex::motor(PORT6, true);//left intake and right intake motors are the spinning mechanism that captures the cubes
-<<<<<<< HEAD
 vex::motor LeftPushup = vex::motor(PORT16);//
 vex::motor RightPushup = vex::motor(PORT17);
+vex::motor PushupBar = vex::motor(PORT7);//what does this do again?
 
+vex::motor motorlist[4][2] = {
+  {LeftMotor, RightMotor},
+  {LeftArmMotor, RightArmMotor},
+  {LeftIntake, RightIntake},
+  {LeftPushup, RightPushup}
+};
 double rot = -60;
 double rotArm;
-bool stack = false;
-bool knock2 = false;
-=======
-vex::motor PushupBar = vex::motor(PORT7);//what does this do again?
->>>>>>> ea27894a1953909962a6ba3d7ff8cfceba5613d7
+bool stack = false;//global variable that indicates whether to do a special function or not
+bool knock2 = false;//global variable that indicates whether to do a special function or not
+
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -60,17 +68,13 @@ void pre_auton( void ) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
-<<<<<<< HEAD
-
 void autonomousleft(void){
   
 }
 
+void autonomousredright( void ) {  
+  PushupBar.rotateFor(directionType::fwd, 100, rotationUnits::deg);
 
-void autonomousright( void ) {  
-  LeftMotor.setVelocity(100, velocityUnits::pct);
-  RightMotor.setVelocity(100, velocityUnits::pct);
-  
   LeftIntake.setVelocity(100, velocityUnits::pct);//spinning the left and right intake
   RightIntake.setVelocity(100, velocityUnits::pct);//spinning the left and rght intake
 
@@ -79,6 +83,19 @@ void autonomousright( void ) {
 
   LeftMotor.rotateFor(-3000, rotationUnits::deg, 100, velocityUnits::pct, false);//move backward after pick up cube 
   RightMotor.rotateFor(-3000, rotationUnits::deg, 100, velocityUnits::pct);//move backward after pick up cu
+
+  LeftMotor.rotateFor(100, rotationUnits::deg, 100, velocityUnits::pct);//move forward
+  RightMotor.rotateFor(-100, rotationUnits::deg, 100, velocityUnits::pct);//move backward
+
+  LeftMotor.rotateFor(3000, rotationUnits::deg, 100, velocityUnits::pct, false);//move forward to pick up cubes
+  RightMotor.rotateFor(3000, rotationUnits::deg, 100, velocityUnits::pct);//move forward to pick up cubes  
+
+  LeftMotor.rotateFor(3000, rotationUnits::deg);
+  RightMotor.rotateFor(3000, rotationUnits::deg);
+
+  PushupBar.rotateFor(directionType::fwd, 100, rotationUnits::deg);
+}
+/*--
 //all of the velocity here needs to be tested and confirmed to determine how much spin we need to do, so the values i have here are all basically dummy values.
 void autonomous( void ) {
 //pushing up the intake tray cube holding thing
@@ -86,9 +103,9 @@ void autonomous( void ) {
 	PushupBar.spin(directionType::rev, 0, velocityUnits::pct);
 //deploying the left arm and right arm  
 	LeftArmMotor.spin(directionType::fwd, 100, velocityUnits::pct);
-  RightArmMotor.spin(dircetionType::fwd, 100, velocityUnits::pct);
+  RightArmMotor.spin(directionType::fwd, 100, velocityUnits::pct);
 	LeftArmMotor.spin(directionType::fwd, 0, velocityUnits::pct);
-  RightArmMotor.spin(dircetionType::fwd, 0, velocityUnits::pct);
+  RightArmMotor.spin(directionType::fwd, 0, velocityUnits::pct);
 //spinning the intakes	
 	LeftIntake.spin(directionType::rev, 100, velocityUnits::pct);
   RightIntake.spin(directionType::rev, 100, velocityUnits::pct);
@@ -128,6 +145,8 @@ void autonomous( void ) {
   LeftIntake.setVelocity(0, velocityUnits::pct);//
   RightIntake.setVelocity(0, velocityUnits::pct);
 }
+--*/
+
 /*If we start in the area that is closer to the smaller goal zone, we should aim to execute the following movements:
 
 Move forward to capture the line of blocks. Simply execute a forward functions.
@@ -158,47 +177,69 @@ Sharp 180 to return
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
+
+//0 = motors, 1 = arm motors, 2 = intake, 3 = pushup
+void unidirect(int identifier, int speed){
+  if (0-speed>=0){
+    motorlist[identifier][0].spin(directionType::rev, speed, velocityUnits::pct);
+    motorlist[identifier][1].spin(directionType::rev, speed, velocityUnits::pct);
+  }
+  motorlist[identifier][0].spin(directionType::fwd, speed, velocityUnits::pct);
+  motorlist[identifier][1].spin(directionType::fwd, speed, velocityUnits::pct);
+}
+
+void unirotate(int identifier, double deg){
+  motorlist[identifier][0].rotateFor(deg, rotationUnits::deg, false);
+  motorlist[identifier][1].rotateFor(deg, rotationUnits::deg, false);
+}
+
 void intakeFunc( void )
 { 
   if (Controller.ButtonY.pressing()){
-    knock2 = true;
+    knock2 = true;//set knock2 preset, which does something
   }
   else if (Controller.ButtonA.pressing()) {
-    knock2 = false;
+    knock2 = false;//set knock2 preset, which does something
   }
-  if(stack||knock2){
-    LeftIntake.spin(directionType::fwd, 100, velocityUnits::pct);
-    RightIntake.spin(directionType::fwd, 100, velocityUnits::pct);
+  if(stack||knock2){//if stack or knock, spins the intake backwards
+//    unidirect(2, 50);
+    LeftIntake.spin(directionType::fwd, 50, velocityUnits::pct);
+    RightIntake.spin(directionType::fwd, 50, velocityUnits::pct);
   }
   else{
     if((Controller.ButtonR2.pressing())){//if right 2 is pressed reverse the spin of left intake and right intake
-        LeftIntake.spin(directionType::fwd, 75, velocityUnits::pct);
-        RightIntake.spin(directionType::fwd, 75, velocityUnits::pct);
+  //    unidirect(2, 75);
+      LeftIntake.spin(directionType::fwd, 75, velocityUnits::pct);
+      RightIntake.spin(directionType::fwd, 75, velocityUnits::pct);
     }
 
     else if (Controller.ButtonR1.pressing()){//if right 1 is pressed set the left intake and right intake speed to 0
+    //    unidirect(2, 0);
         LeftIntake.setVelocity(0, velocityUnits::pct);
         RightIntake.setVelocity(0, velocityUnits::pct);
     }
     else{//if not pressed the intake spins as normal
-        LeftIntake.spin(directionType::rev, 100, velocityUnits::pct);
-        RightIntake.spin(directionType::rev, 100, velocityUnits::pct);
+    //    unidirect(2, 0);
+        LeftIntake.spin(directionType::rev, 50, velocityUnits::pct);
+        RightIntake.spin(directionType::rev, 50, velocityUnits::pct);
     }
   }
 }
 
 void armFunc( void ) {
   if (Controller.ButtonX.pressing()){
-    stack = true;
+    stack = true;//set state of stack, which is a special preset
   }
   else if (Controller.ButtonB.pressing()) {
-    stack = false;
+    stack = false;//set state of stack, which is a special preset
   }
   if(stack){
+  //  unirotate(1, 475);
     LeftArmMotor.rotateTo(475, rotationUnits::deg, false);
     RightArmMotor.rotateTo(475, rotationUnits::deg, false);
   }
   else if(knock2){
+  //  unirotate(1, 700);
     LeftArmMotor.rotateTo(700, rotationUnits::deg, false);
     RightArmMotor.rotateTo(700, rotationUnits::deg, false);
   }
@@ -225,15 +266,12 @@ void pushFunc( void ){
   }
   else if(Controller.ButtonDown.pressing()){
       //PushupBar.spin(directionType::fwd, 5, velocityUnits::pct);
-      rot = -60;
+      rot = -60;//set rotation to -60, which is some kind of preset
   }
   else{
       PushupBar.rotateTo(rot, rotationUnits::deg);
   }
 }
-
-
-
 
 void usercontrol( void ) {
   PushupBar.resetRotation();
